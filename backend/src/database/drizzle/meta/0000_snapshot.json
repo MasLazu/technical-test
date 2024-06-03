@@ -1,0 +1,181 @@
+{
+  "id": "02ea88ef-c57c-499f-87ce-7c3b3c094e7d",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.products": {
+      "name": "products",
+      "schema": "",
+      "columns": {
+        "productid": {
+          "name": "productid",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "productname": {
+          "name": "productname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "productdescription": {
+          "name": "productdescription",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "productprice": {
+          "name": "productprice",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.sales": {
+      "name": "sales",
+      "schema": "",
+      "columns": {
+        "salesid": {
+          "name": "salesid",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "salesdate": {
+          "name": "salesdate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "productid": {
+          "name": "productid",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "salespersonid": {
+          "name": "salespersonid",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "productid_idx": {
+          "name": "productid_idx",
+          "columns": [
+            {
+              "expression": "productid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "salespersonid_idx": {
+          "name": "salespersonid_idx",
+          "columns": [
+            {
+              "expression": "salespersonid",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "sales_productid_products_productid_fk": {
+          "name": "sales_productid_products_productid_fk",
+          "tableFrom": "sales",
+          "tableTo": "products",
+          "columnsFrom": [
+            "productid"
+          ],
+          "columnsTo": [
+            "productid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "sales_salespersonid_products_productid_fk": {
+          "name": "sales_salespersonid_products_productid_fk",
+          "tableFrom": "sales",
+          "tableTo": "products",
+          "columnsFrom": [
+            "salespersonid"
+          ],
+          "columnsTo": [
+            "productid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.Salespersons": {
+      "name": "Salespersons",
+      "schema": "",
+      "columns": {
+        "salespersonid": {
+          "name": "salespersonid",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "salespersonname": {
+          "name": "salespersonname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "salespersonphonenumber": {
+          "name": "salespersonphonenumber",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "salespersonemail": {
+          "name": "salespersonemail",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
