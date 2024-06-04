@@ -1,10 +1,15 @@
 import { PgInsertValue, PgTableWithColumns } from 'drizzle-orm/pg-core';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import { sql } from 'drizzle-orm';
-import postgres from 'postgres';
+import { Pool } from 'pg';
 import { db } from 'src/database/db';
 
 export class Service<T extends PgTableWithColumns<any>> {
+  static db = drizzle(
+    new Pool({
+      connectionString: process.env.DATABASE_URL,
+    }),
+  );
   table: T;
 
   constructor(table: T) {
@@ -43,9 +48,7 @@ export class Service<T extends PgTableWithColumns<any>> {
   }
 
   async delete(id: number) {
-    return await db
-      .delete(this.table)
-      .where(sql`${this.table.id} = ${id}`);
+    return await db.delete(this.table).where(sql`${this.table.id} = ${id}`);
   }
 
   async deleteAll() {
